@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Ley de Hooke - Dinamómetro</title>
+<style>
+body{font-family:Arial;background:#fff;margin:0}
+.wrap{display:grid;grid-template-columns:300px 1fr;gap:10px;padding:10px}
+.panel{background:#f3f4f6;padding:10px;border-radius:10px}
+canvas{border:1px solid #ccc;border-radius:10px;background:white}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="panel">
+<h3>Ley de Hooke</h3>
+
+Masa (kg)<br>
+<input type="range" id="masa" min="0.1" max="10" step="0.1" value="1">
+<input type="number" id="masaNum" min="0.1" max="10" step="0.1" value="1" style="width:80px"><br>
+<span id="mVal"></span><br><br>
+
+Constante k (N/m)<br>
+<input type="range" id="k" min="10" max="500" step="0.1" value="100">
+<input type="number" id="kNum" min="10" max="500" step="0.1" value="100" style="width:80px"><br>
+<span id="kVal"></span><br><br>
+
+Gravedad (m/s²)<br>
+<input type="range" id="g" min="1" max="20" step="0.1" value="9.8"><br>
+<span id="gVal"></span><br><br>
+
+<button onclick="simular()">Aplicar masa</button>
+<button onclick="reset()">Reset</button>
+
+<div style="margin-top:10px">
+<h4>Tabla de ensayos</h4>
+<table border="1" cellpadding="5" style="border-collapse:collapse;width:100%;font-size:12px">
+<thead>
+<tr>
+<th>#</th>
+<th>Masa (kg)</th>
+<th>k (N/m)</th>
+<th>F (N)</th>
+<th>x (m)</th>
+</tr>
+</thead>
+<tbody id="tabla"></tbody>
+</table>
+</div>
+
+</div>
+
+<div>
+<canvas id="cv" width="400" height="600"></canvas>
+</div>
+
+</div>
+
+<script>
+const cv = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+
+const masa = document.getElementById("masa");
+const k = document.getElementById("k");
+const g = document.getElementById("g");
+const masaNum = document.getElementById("masaNum");
+const kNum = document.getElementById("kNum");
+
+const mVal = document.getElementById("mVal");
+const kVal = document.getElementById("kVal");
+const gVal = document.getElementById("gVal");
+
+let datos = [];
+let animando = false;
+let xActual = 0;
+let xFinal = 0;
+let FFinal = 0;
+
+function actualizar(){
+ mVal.textContent = "m = " + masa.value + " kg";
+ kVal.textContent = "k = " + k.value + " N/m";
+ gVal.textContent = "g = " + g.value + " m/s²";
+}
+setInterval(actualizar,100);
+
+masa.addEventListener("input",()=>{ masaNum.value = masa.value; });
+masaNum.addEventListener("input",()=>{ masa.value = masaNum.value; });
+
+k.addEventListener("input",()=>{ kNum.value = k.value; });
+kNum.addEventListener("input",()=>{ k.value = kNum.value; });
+
+function simular(){
+ let m = parseFloat(masa.value);
+ let kValNum = parseFloat(k.value);
+ let gValNum = parseFloat(g.value);
+
+ FFinal = m * gValNum;
+ xFinal = FFinal / kValNum;
+
+ xActual = 0;
+ animando = true;
+ animar();
+
+ datos.push({m:m,k:kValNum,F:FFinal,x:xFinal});
+ actualizarTabla();
+}
+
+function animar(){
+ if(!animando) return;
+
+ xActual += (xFinal - xActual)*0.05;
+ dibujar(xActual,FFinal);
+
+ if(Math.abs(xFinal - xActual) > 0.001){
+  requestAnimationFrame(animar);
+ } else {
+  animando = false;
+ }
+}
+
+function dibujar(x,F){
+ ctx.clearRect(0,0,400,600);
+
+ // soporte
+ ctx.fillStyle = "#444";
+ ctx.fillRect(150,10,100,12);
+
+ // cuerpo dinamómetro (más grande)
+ ctx.fillStyle = "#e5e7eb";
+ ctx.fillRect(150,25,100,400);
+ ctx.strokeStyle = "black";
+ ctx.strokeRect(150,25,100,400);
+
+ // escala dinámica según xFinal
+ let pasos = 10;
+ let maxF = FFinal;
+ let escala = 1;
+ if(maxF>100){escala = Math.ceil(maxF/100);}
+ let espacio = 400 / pasos;
+ ctx.fillStyle = "black";
+ for(let i=0;i<=pasos;i++){
+   let y = 25 + i*espacio;
+   ctx.beginPath();
+   ctx.moveTo(150,y);
+   ctx.lineTo(165,y);
+   ctx.stroke();
+   let fValor = Math.round(i*(maxF/pasos));
+   ctx.fillText(fValor+"N",80,y+3);
+ }
+
+ let base = 40;
+ let largo = 160 + x*300;
+
+ // resorte
+ ctx.strokeStyle = "#555";
+ ctx.beginPath();
+ ctx.moveTo(200,base);
+ for(let i=0;i<16;i++){
+  let y = base + i*(largo/16);
+  let dx = i%2==0 ? -12 : 12;
+  ctx.lineTo(200+dx,y);
+ }
+ ctx.stroke();
+
+ // indicador
+ let indicadorY = 25 + (F*(x/xFinal || 0));
+ ctx.strokeStyle = "red";
+ ctx.beginPath();
+ ctx.moveTo(150,indicadorY);
+ ctx.lineTo(250,indicadorY);
+ ctx.stroke();
+
+ // masa
+ ctx.fillStyle = "#2563eb";
+ ctx.fillRect(175,base+largo,50,35);
+ ctx.fillStyle = "white";
+ ctx.textAlign = "center";
+ ctx.fillText(masa.value + " kg",200,base+largo+22);
+
+ // regla interna del estiramiento
+ ctx.strokeStyle = "green";
+ ctx.beginPath();
+ ctx.moveTo(200,base);
+ ctx.lineTo(200,base+largo);
+ ctx.stroke();
+ ctx.fillStyle="green";
+ ctx.textAlign="start";
+ ctx.fillText(x.toFixed(2)+" m",220,base+largo/2); // moved a la derecha
+
+ // info
+ ctx.fillStyle = "black";
+ ctx.textAlign = "start";
+ ctx.fillText("x = " + x.toFixed(2) + " m",10,20);
+ ctx.fillText("F = " + (F*(x/xFinal||0)).toFixed(2) + " N",10,40);
+}
+
+function actualizarTabla(){
+ const tbody = document.getElementById("tabla");
+ tbody.innerHTML = "";
+
+ datos.forEach((d,i)=>{
+  let row = `<tr>
+   <td>${i+1}</td>
+   <td>${d.m.toFixed(2)}</td>
+   <td>${d.k.toFixed(2)}</td>
+   <td>${d.F.toFixed(2)}</td>
+   <td>${d.x.toFixed(3)}</td>
+  </tr>`;
+  tbody.innerHTML += row;
+ });
+}
+
+function reset(){
+ datos=[];
+ xActual=0;
+ animando=false;
+ ctx.clearRect(0,0,400,600);
+ actualizarTabla();
+ dibujar(0,0);
+}
+
+// inicio
+ dibujar(0,0);
+
+</script>
+</body>
+</html>
+
