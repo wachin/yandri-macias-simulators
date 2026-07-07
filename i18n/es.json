@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteTitle": "Laboratorio Virtual de Física | Yandri Macías",
-    "siteDescription": "Plataforma educativa de simuladores de Física para estudiantes de la Unidad Educativa 30 de Septiembre."
+    "siteDescription": "Plataforma educativa de simuladores de Física para estudiantes de la Unidad Educativa Treinta de Septiembre."
   },
   "nav": {
     "brand": "Laboratorio Virtual de Física",
@@ -10,7 +10,7 @@
     "language": "Idioma"
   },
   "hero": {
-    "eyebrow": "Unidad Educativa 30 de Septiembre",
+    "eyebrow": "Unidad Educativa Treinta de Septiembre",
     "title": "Simuladores de Física para explorar, medir y comprender",
     "subtitle": "Una plataforma educativa modular creada para que cada fenómeno físico tenga su propio espacio interactivo, claro y listo para crecer.",
     "primaryCta": "Ver simuladores",
@@ -48,7 +48,7 @@
   "credits": {
     "line1": "Simuladores desarrollados por Yandri Macías",
     "line2": "Diseño Web Washington Indacochea",
-    "line3": "para los estudiantes de la Unidad Educativa 30 de Septiembre."
+    "line3": "para los estudiantes de la Unidad Educativa Treinta de Septiembre."
   },
   "footer": {
     "repo": "Proyecto listo para GitHub Pages",

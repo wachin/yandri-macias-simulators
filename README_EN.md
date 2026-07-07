@@ -8,7 +8,7 @@ Educational Physics simulator platform built to be published as a static GitHub 
 
 Simulators developed by Yandri Macías  
 Web Design Washington Indacochea  
-for the students of Unidad Educativa 30 de Septiembre.
+for the students of Unidad Educativa Treinta de Septiembre.
 
 ## Included Simulators
 

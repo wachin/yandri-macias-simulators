@@ -1,7 +1,7 @@
 {
   "meta": {
     "siteTitle": "Virtual Physics Lab | Yandri Macías",
-    "siteDescription": "Educational Physics simulator platform for Unidad Educativa 30 de Septiembre students."
+    "siteDescription": "Educational Physics simulator platform for Unidad Educativa Treinta de Septiembre students."
   },
   "nav": {
     "brand": "Virtual Physics Lab",
@@ -10,7 +10,7 @@
     "language": "Language"
   },
   "hero": {
-    "eyebrow": "Unidad Educativa 30 de Septiembre",
+    "eyebrow": "Unidad Educativa Treinta de Septiembre",
     "title": "Physics simulators for exploring, measuring and understanding",
     "subtitle": "A modular educational platform where each physics phenomenon has its own clear, interactive and expandable space.",
     "primaryCta": "View simulators",
@@ -48,7 +48,7 @@
   "credits": {
     "line1": "Simulators developed by Yandri Macías",
     "line2": "Web Design Washington Indacochea",
-    "line3": "for the students of Unidad Educativa 30 de Septiembre."
+    "line3": "for the students of Unidad Educativa Treinta de Septiembre."
   },
   "footer": {
     "repo": "Ready for GitHub Pages",

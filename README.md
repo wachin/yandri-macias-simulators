@@ -8,7 +8,7 @@ Plataforma educativa de simuladores de Física desarrollada para publicarse como
 
 Simuladores desarrollados por Yandri Macías  
 Diseño Web Washington Indacochea  
-para los estudiantes de la Unidad Educativa 30 de Septiembre.
+para los estudiantes de la Unidad Educativa Treinta de Septiembre.
 
 ## Simuladores incluidos
 
