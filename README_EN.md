@@ -91,7 +91,7 @@ http://localhost:8000/
 
 ## Deploy to GitHub Pages
 
-1. Push your changes to the `wachin/yandri-franco-simulators` repository.
+1. Push your changes to the `wachin/yandri-macias-simulators` repository.
 2. In GitHub, go to `Settings > Pages`.
 3. Under `Build and deployment`, choose `Deploy from a branch`.
 4. Select the main branch and the `/root` folder.
@@ -100,7 +100,7 @@ http://localhost:8000/
 The public URL will look like this:
 
 ```text
-https://wachin.github.io/yandri-franco-simulators/
+https://wachin.github.io/yandri-macias-simulators/
 ```
 
 ## Add a New Simulator
