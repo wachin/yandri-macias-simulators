@@ -455,21 +455,20 @@ h1 {
 }
 
 .repo-invite {
-  padding: 46px 16px 30px;
+  padding: 0 16px 30px;
   background:
     radial-gradient(circle at top right, rgba(20, 85, 217, 0.12), transparent 28%),
     linear-gradient(180deg, #f8fafc, #eef4fb);
 }
 
 .repo-invite-card {
-  width: min(920px, 100%);
+  width: min(1120px, 100%);
   margin: 0 auto;
-  border: 1px solid rgba(217, 226, 239, 0.95);
-  border-radius: 24px;
-  background:
-    linear-gradient(135deg, rgba(20, 85, 217, 0.08), rgba(15, 139, 141, 0.06)),
-    rgba(255, 255, 255, 0.96);
-  box-shadow: 0 24px 56px rgba(16, 24, 40, 0.12);
+  border: 1px solid rgba(217, 226, 239, 0.92);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 16px 36px rgba(16, 24, 40, 0.08);
+  overflow: hidden;
 }
 
 .repo-summary {
@@ -478,7 +477,8 @@ h1 {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 16px;
-  padding: 24px 28px;
+  min-height: 88px;
+  padding: 16px 28px;
   cursor: pointer;
 }
 
@@ -487,14 +487,14 @@ h1 {
 }
 
 .repo-summary-icon {
-  width: 54px;
-  height: 54px;
+  width: 56px;
+  height: 56px;
   border-radius: 16px;
   display: grid;
   place-items: center;
   color: white;
-  background: linear-gradient(135deg, #111827, #1455d9);
-  box-shadow: 0 14px 28px rgba(17, 24, 39, 0.18);
+  background: linear-gradient(135deg, #163d9f, #2563eb);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
 }
 
 .repo-summary-icon svg {
@@ -504,9 +504,10 @@ h1 {
 
 .repo-summary-text {
   text-align: left;
-  font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+  font-size: clamp(1.05rem, 2vw, 1.1rem);
   font-weight: 900;
   line-height: 1.2;
+  white-space: nowrap;
 }
 
 .repo-summary-caret {
@@ -516,6 +517,7 @@ h1 {
   border-bottom: 3px solid var(--brand);
   transform: rotate(45deg);
   transition: transform 180ms ease;
+  margin-right: 6px;
 }
 
 .repo-invite-card[open] .repo-summary-caret {
@@ -523,9 +525,13 @@ h1 {
 }
 
 .repo-details {
-  padding: 0 28px 30px;
+  padding: 4px 28px 28px;
   text-align: center;
   animation: repoDrop 180ms ease;
+  background:
+    linear-gradient(135deg, rgba(20, 85, 217, 0.06), rgba(15, 139, 141, 0.04)),
+    rgba(255, 255, 255, 0.98);
+  border-top: 1px solid rgba(217, 226, 239, 0.92);
 }
 
 .repo-kicker {
@@ -598,5 +604,15 @@ h1 {
   .section { padding: 52px 0; }
   .repo-summary,
   .repo-details { padding-left: 18px; padding-right: 18px; }
+  .repo-summary {
+    grid-template-columns: auto 1fr;
+  }
+  .repo-summary-caret {
+    grid-column: 2;
+    justify-self: end;
+  }
+  .repo-summary-text {
+    white-space: normal;
+  }
   .repo-button { width: 100%; }
 }
